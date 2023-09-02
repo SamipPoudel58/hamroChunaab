@@ -1,9 +1,6 @@
-import { Voter } from '@/pages/register';
 import { useMutation, useQueryClient } from 'react-query';
 import { ApiError } from './use-create-voter';
-import { VoterLoginData } from '@/pages/login';
-
-type ImageUploadResponse = { msg: string };
+import { VoterLoginData, VoterLoginResponse } from '@/pages/login';
 
 const loginVoter = async (loginData: VoterLoginData) => {
   const res = await fetch(
@@ -25,5 +22,5 @@ const loginVoter = async (loginData: VoterLoginData) => {
 };
 
 export const useLoginVoter = () => {
-  return useMutation<ImageUploadResponse, ApiError, VoterLoginData>(loginVoter);
+  return useMutation<VoterLoginResponse, ApiError, VoterLoginData>(loginVoter);
 };

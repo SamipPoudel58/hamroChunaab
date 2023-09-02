@@ -1,12 +1,29 @@
 import Voter from '../models/voterModel.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import generateToken from '../utils/generateToken.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // @desc Auth user and get token
 // @route POST /api/users/login
 // @access Public
 export const loginUser = asyncHandler(async (req, res) => {
   const { citizenship_no, password } = req.body;
+
+  const adminCitizenshipNo = process.env.ADMIN_CITIZENSHIP_NO;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  console.log(adminCitizenshipNo, adminPassword);
+
+  if (citizenship_no === adminCitizenshipNo && password === adminPassword) {
+    return res.json({
+      _id: process.env.ADMIN_CITIZENSHIP_NO,
+      name: 'Admin',
+      citizenship_no: process.env.ADMIN_CITIZENSHIP_NO,
+      token: generateToken(process.env.ADMIN_CITIZENSHIP_NO),
+      admin: true,
+    });
+  }
 
   const voter = await Voter.findOne({ citizenship_no });
 
