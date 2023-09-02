@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
       </>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

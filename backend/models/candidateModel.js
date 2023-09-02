@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const candidateSchema = new mongoose.Schema(
   {
@@ -10,14 +10,6 @@ const candidateSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    photo: {
-      secure_url: {
-        type: String,
-      },
-      public_id: {
-        type: String,
-      },
-    },
   },
   {
     timestamps: true,
@@ -26,4 +18,4 @@ const candidateSchema = new mongoose.Schema(
 
 const Candidate = mongoose.model('Candidate', candidateSchema);
 
-module.exports = Candidate;
+export default Candidate;

@@ -14,7 +14,7 @@ export type VoterLoginResponse = {
   name: string;
   citizenship_no: number;
   token: string;
-  admin?: boolean;
+  admin: boolean;
 };
 
 const LoginPage = () => {
@@ -31,7 +31,7 @@ const LoginPage = () => {
           name: data.name,
           citizenship_no: data.citizenship_no,
           token: data.token,
-          admin: Boolean(data.admin),
+          admin: data.admin,
         });
         if (data.admin) {
           router.push('/admin-dashboard');

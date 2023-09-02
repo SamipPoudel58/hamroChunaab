@@ -10,21 +10,6 @@ dotenv.config();
 export const loginUser = asyncHandler(async (req, res) => {
   const { citizenship_no, password } = req.body;
 
-  const adminCitizenshipNo = process.env.ADMIN_CITIZENSHIP_NO;
-  const adminPassword = process.env.ADMIN_PASSWORD;
-
-  console.log(adminCitizenshipNo, adminPassword);
-
-  if (citizenship_no === adminCitizenshipNo && password === adminPassword) {
-    return res.json({
-      _id: process.env.ADMIN_CITIZENSHIP_NO,
-      name: 'Admin',
-      citizenship_no: process.env.ADMIN_CITIZENSHIP_NO,
-      token: generateToken(process.env.ADMIN_CITIZENSHIP_NO),
-      admin: true,
-    });
-  }
-
   const voter = await Voter.findOne({ citizenship_no });
 
   if (voter && (await voter.matchPassword(password))) {
@@ -33,6 +18,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       name: voter.name,
       citizenship_no: voter.citizenship_no,
       token: generateToken(voter._id),
+      admin: voter.admin,
     });
   } else {
     res.status(401);
@@ -62,6 +48,7 @@ export const registerVoter = asyncHandler(async (req, res) => {
     address,
     dob,
     documents,
+    admin: false,
   });
 
   if (voter) {

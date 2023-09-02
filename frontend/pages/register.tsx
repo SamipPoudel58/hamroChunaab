@@ -112,6 +112,7 @@ const RegisterPage: NextPage = () => {
 
                 <div className="flex justify-between mt-2">
                   {documents.map((doc, idx) => (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       className="max-w-[48%] border border-slate-300"
                       src={doc}

@@ -1,5 +1,6 @@
 import { VoterLoginResponse } from '@/pages/login';
 import create, { SetState } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface UserState {
   loginDetail: VoterLoginResponse;
@@ -30,6 +31,11 @@ let store = (set: SetState<UserState>) => ({
   //   setToken: (value: string) => set({ token: value }),
 });
 
-const useUserStore = create<UserState>(store);
+let persistedStore = persist(store, {
+  name: 'user-store',
+  getStorage: () => sessionStorage,
+});
+
+const useUserStore = create<UserState>(persistedStore);
 
 export default useUserStore;

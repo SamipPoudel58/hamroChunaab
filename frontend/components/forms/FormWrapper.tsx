@@ -18,16 +18,27 @@ const FormWrapper = ({
     <FormProvider {...methods}>
       <form className={className} onSubmit={handleSubmit(onSubmit)}>
         {children}
-        <button
-          className="text-white font-medium h-[64px] mt-4 bg-primary-light w-[200px] flex items-center justify-center"
-          type="submit"
-        >
-          {showLoader ? <Spinner /> : 'Submit'}
-        </button>
+        <div className="mt-4"></div>
+        <Button text="Submit" showLoader={showLoader} />
       </form>
     </FormProvider>
   );
 };
+
+export const Button = ({
+  text,
+  showLoader = false,
+}: {
+  text: string;
+  showLoader?: boolean;
+}) => (
+  <button
+    className="text-white font-medium h-[55px] bg-primary-light min-w-[150px] flex items-center justify-center"
+    type="submit"
+  >
+    {showLoader ? <Spinner /> : text}
+  </button>
+);
 
 const Spinner = () => (
   <div className="h-6 w-6 border-[4px] border-white border-solid border-t-white/30 rounded-full animate-spin"></div>
