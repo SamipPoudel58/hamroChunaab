@@ -5,7 +5,9 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 // @route GET /api/candidates
 // @access Private/Admin
 export const getCandidates = asyncHandler(async (req, res) => {
-  const candidates = await Candidate.find({}).select('_id name party');
+  const candidates = await Candidate.find({})
+    .select('_id name party')
+    .sort({ createdAt: -1 });
   res.json(candidates);
 });
 

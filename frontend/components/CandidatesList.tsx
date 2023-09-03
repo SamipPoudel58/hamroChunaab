@@ -10,6 +10,7 @@ const CandidatesList = ({
   candidates: Candidate[] | undefined;
 }) => {
   const { token, admin } = useUserStore((state) => state.loginDetail);
+  const setHasVoted = useUserStore((state) => state.setHasVoted);
 
   const router = useRouter();
 
@@ -23,7 +24,7 @@ const CandidatesList = ({
         { token, candidateId: potentialVote._id },
         {
           onSuccess: () => {
-            router.push('/');
+            setHasVoted(true);
           },
         }
       );

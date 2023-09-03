@@ -2,11 +2,14 @@ import { useQuery } from 'react-query';
 import { ApiError } from './use-create-voter';
 import { Candidate } from '@/pages/admin-dashboard';
 
-type GetCandidatesResponse = Candidate[];
+type GetResultsResponse = {
+  candidate: { name: string; party: string };
+  totalVotes: number;
+}[];
 
-const getCandidates = async () => {
+const getResults = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/candidates`,
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/votes/results`,
     {
       method: 'GET',
       headers: {
@@ -24,9 +27,6 @@ const getCandidates = async () => {
   return res.json();
 };
 
-export const useGetCandidates = () => {
-  return useQuery<GetCandidatesResponse, ApiError>(
-    ['candidates'],
-    getCandidates
-  );
+export const useGetResults = () => {
+  return useQuery<GetResultsResponse, ApiError>(['results'], getResults);
 };
